@@ -1,26 +1,15 @@
 package ie.ittralee.finalyeartest.finalyeartest;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
-import com.couchbase.lite.Document;
-import com.couchbase.lite.Manager;
-import com.couchbase.lite.android.AndroidContext;
-import com.couchbase.lite.util.Log;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     String log;
@@ -48,14 +37,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("Shop: : ", log);
         }
 
+        //Button Creation/Instantiation
+        instantiateButtons();
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.shareFilesBtn:
+                Intent intent =new Intent(getApplicationContext(),ShareFilesActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.messageBtn:
+                Toast.makeText(MainActivity.this, "YOUR MESSAGE", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.myFilesBtn:
+                // do your code
+                break;
+
+            case R.id.connectbtn:
+                // do your code
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void instantiateButtons()
+    {
         Button shareFilesBtn;
         shareFilesBtn = (Button) findViewById(R.id.shareFilesBtn);
         shareFilesBtn.setOnClickListener(this);
 
-    }
+        Button messageFileBtn;
+        messageFileBtn = (Button) findViewById(R.id.messageBtn);
+        messageFileBtn.setOnClickListener(this);
 
-    @Override
-    public void onClick(View v) {
-        Toast.makeText(getApplicationContext(), log, Toast.LENGTH_LONG).show();
+        Button myFilesBtn;
+        myFilesBtn = (Button) findViewById(R.id.myFilesBtn);
+        myFilesBtn.setOnClickListener(this);
+
+        Button connectBtn;
+        connectBtn = (Button) findViewById(R.id.connectbtn);
+        connectBtn.setOnClickListener(this);
     }
 }
