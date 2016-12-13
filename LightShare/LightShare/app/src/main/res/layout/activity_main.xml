@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="ie.ittralee.finalyeartest.finalyeartest.MainActivity"
+    android:background="@color/backgroundColor">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@color/backgroundColor">
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:text="Share Files"
+                android:layout_height="179dp"
+                android:id="@+id/shareFilesBtn"
+                android:background="@drawable/sharefilesstate"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:textColor="@android:color/background_light"
+                android:textSize="24sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+                android:gravity="center"
+                android:textAlignment="gravity"/>
+
+            <Button
+                android:text="My Files"
+                android:layout_width="150dp"
+                android:layout_height="179dp"
+                android:id="@+id/myFilesBtn"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:background="@drawable/myfilestate"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:textSize="24sp"
+                android:textColor="@android:color/background_light"
+                android:gravity="center"
+                android:textAlignment="gravity"/>
+
+            <Button
+                android:text="Connect"
+                android:layout_width="150dp"
+                android:layout_height="179dp"
+                android:id="@+id/connectbtn"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:textSize="24sp"
+                android:textColor="@android:color/background_light"
+                android:background="@drawable/connectstate"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                />
+
+            <Button
+                android:text="Message"
+                android:layout_width="150dp"
+                android:layout_height="179dp"
+                android:id="@+id/messageBtn"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:background="@drawable/messagestate"
+                android:textSize="24sp"
+                android:textColor="@android:color/background_light"
+                android:gravity="center"
+                android:textAlignment="gravity" />
+        </GridLayout>
+
+        <TextView
+            android:text="Copyright Aleksandar Zoric"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
