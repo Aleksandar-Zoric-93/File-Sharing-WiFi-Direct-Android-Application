@@ -2,18 +2,22 @@ package ie.ittralee.finalyeartest.finalyeartest;
 
 
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
+import java.net.URLConnection;
 
 
 public class ShareFilesActivity extends AppCompatActivity implements View.OnClickListener {
@@ -52,10 +56,18 @@ public class ShareFilesActivity extends AppCompatActivity implements View.OnClic
                 Intent intent = new Intent();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setAction(Intent.ACTION_VIEW);
-                String type = "image/*";
+
+
+
+                String type = mimeType;
                 Toast.makeText(ShareFilesActivity.this, "Type3: " + type, Toast.LENGTH_LONG).show();
 
                 intent.setDataAndType(Uri.parse(input),type);
+                if(type == "audio/mpeg")
+                {
+                    MediaPlayer mediaPlayer = MediaPlayer.create(this, Uri.parse(type));
+                    mediaPlayer.start();
+                }
                 startActivity(intent);
                 Toast.makeText(ShareFilesActivity.this, input, Toast.LENGTH_LONG).show();
                 Toast.makeText(ShareFilesActivity.this, "Type1: " + mimeType, Toast.LENGTH_LONG).show();
@@ -97,8 +109,10 @@ public class ShareFilesActivity extends AppCompatActivity implements View.OnClic
                             Log.i(TAG, "Uri = " + uri.toString());
                             mTextView = (TextView) findViewById(R.id.fileNameTextView);
                             mTextView.setText(uri.toString());
-                            mimeType = getContentResolver().getType(uri);
+                           // mimeType = getContentResolver().getType(uri);
 
+                            mimeType = returnMimeType(uri);
+                            Toast.makeText(ShareFilesActivity.this, "Check: " + mimeType, Toast.LENGTH_LONG).show();
                             try {
                                 // Get the file path from the URI
                                 final String path = FileUtils.getPath(this, uri);
@@ -113,5 +127,22 @@ public class ShareFilesActivity extends AppCompatActivity implements View.OnClic
 
             super.onActivityResult(requestCode, resultCode, data);
         }
+
+
+    public String returnMimeType(Uri uri)
+    {
+        String mimeType3 = null;
+        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            ContentResolver cr = getApplicationContext().getContentResolver();
+            mimeType3 = cr.getType(uri);
+        } else {
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
+                    .toString());
+            mimeType3 = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                    fileExtension.toLowerCase());
+        }
+        return mimeType3;
+    }
+
 
 }
