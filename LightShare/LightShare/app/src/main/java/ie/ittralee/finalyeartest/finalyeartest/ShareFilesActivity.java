@@ -17,13 +17,14 @@ import android.widget.Toast;
 
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
-import java.net.URLConnection;
+import static ie.ittralee.finalyeartest.finalyeartest.R.id.fileNameTextView;
 
 
 public class ShareFilesActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "ShareFilesActivity";
-    TextView mTextView = null;
+    TextView fileTypeTextView = null;
     String mimeType = null;
+    Button previewBtn;
 
     private static final int REQUEST_CODE = 6384; // onActivityResult request
     // code
@@ -36,9 +37,9 @@ public class ShareFilesActivity extends AppCompatActivity implements View.OnClic
         chooseFile = (Button) findViewById(R.id.chooseFileBtn);
         chooseFile.setOnClickListener(this);
 
-        Button previewBtn;
         previewBtn = (Button) findViewById(R.id.previewBtn);
         previewBtn.setOnClickListener(this);
+        previewBtn.setVisibility(View.GONE);
 
 
     }
@@ -49,25 +50,28 @@ public class ShareFilesActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.chooseFileBtn:
                 showChooser();
+                previewBtn.setVisibility(View.VISIBLE);
                 break;
 
+
             case R.id.previewBtn:
-                String input = mTextView.getText().toString();
+                String input = fileTypeTextView.getText().toString();
                 Intent intent = new Intent();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setAction(Intent.ACTION_VIEW);
-
-
 
                 String type = mimeType;
                 Toast.makeText(ShareFilesActivity.this, "Type3: " + type, Toast.LENGTH_LONG).show();
 
                 intent.setDataAndType(Uri.parse(input),type);
+
                 if(type == "audio/mpeg")
                 {
                     MediaPlayer mediaPlayer = MediaPlayer.create(this, Uri.parse(type));
                     mediaPlayer.start();
                 }
+
+
                 startActivity(intent);
                 Toast.makeText(ShareFilesActivity.this, input, Toast.LENGTH_LONG).show();
                 Toast.makeText(ShareFilesActivity.this, "Type1: " + mimeType, Toast.LENGTH_LONG).show();
@@ -77,6 +81,7 @@ public class ShareFilesActivity extends AppCompatActivity implements View.OnClic
                 break;
 
             default:
+                Toast.makeText(ShareFilesActivity.this, "No File Selected",Toast.LENGTH_LONG).show();
                 break;
         }
 
@@ -107,8 +112,9 @@ public class ShareFilesActivity extends AppCompatActivity implements View.OnClic
                             mimeType = getContentResolver().getType(uri);
                             Toast.makeText(ShareFilesActivity.this, "Type2: " + mimeType, Toast.LENGTH_LONG).show();
                             Log.i(TAG, "Uri = " + uri.toString());
-                            mTextView = (TextView) findViewById(R.id.fileNameTextView);
-                            mTextView.setText(uri.toString());
+                            fileTypeTextView = (TextView) findViewById(fileNameTextView);
+                            fileTypeTextView.setTextColor(getResources().getColorStateList(R.color.fileSelected));
+                            fileTypeTextView.setText(uri.toString());
                            // mimeType = getContentResolver().getType(uri);
 
                             mimeType = returnMimeType(uri);

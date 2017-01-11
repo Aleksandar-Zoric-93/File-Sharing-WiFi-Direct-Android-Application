@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("Shop: : ", log);
         }
 
+        //Toast.makeText(MainActivity.this, log, Toast.LENGTH_LONG).show();
+
         //Button Creation/Instantiation
         instantiateButtons();
 
@@ -48,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.shareFilesBtn:
-                Intent intent =new Intent(getApplicationContext(),ShareFilesActivity.class);
-                startActivity(intent);
+                Intent shareFilesIntent =new Intent(getApplicationContext(),ShareFilesActivity.class);
+                startActivity(shareFilesIntent);
                 break;
 
             case R.id.messageBtn:
@@ -61,7 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.connectbtn:
-                // do your code
+                Intent wifiDirectIntent =new Intent(getApplicationContext(),WiFiDirectActivity.class);
+                startActivity(wifiDirectIntent);
                 break;
 
             default:
