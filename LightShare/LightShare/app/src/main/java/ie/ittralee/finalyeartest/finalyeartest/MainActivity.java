@@ -1,14 +1,10 @@
 package ie.ittralee.finalyeartest.finalyeartest;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -18,9 +14,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DBHandler db = new DBHandler(this);
+       /* DBHandler db = new DBHandler(this);
 
-        // Inserting Shop/Rows
+        // Inserting Shop/Rows - Used for testing purposes.
         Log.d("Insert: ", "Inserting ..");
         db.addShop(new Shop("Dockers", " 475 Brannan St #330, San Francisco, CA 94107, United States"));
         db.addShop(new Shop("Dunkin Donuts", "White Plains, NY 10601"));
@@ -37,7 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("Shop: : ", log);
         }
 
-        //Toast.makeText(MainActivity.this, log, Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this, log, Toast.LENGTH_LONG).show();*/
+
+
 
         //Button Creation/Instantiation
         instantiateButtons();
@@ -50,16 +48,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.shareFilesBtn:
-                Intent shareFilesIntent =new Intent(getApplicationContext(),ShareFilesActivity.class);
-                startActivity(shareFilesIntent);
                 break;
 
             case R.id.messageBtn:
-                Toast.makeText(MainActivity.this, "YOUR MESSAGE", Toast.LENGTH_LONG).show();
+               // Toast.makeText(MainActivity.this, "YOUR MESSAGE", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.myFilesBtn:
-                // do your code
+                Intent myFilesIntent =new Intent(getApplicationContext(),MyFilesActivity.class);
+                startActivity(myFilesIntent);
                 break;
 
             case R.id.connectbtn:
@@ -91,3 +88,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         connectBtn.setOnClickListener(this);
     }
 }
+
+
+/***************************************************************************************
+ *    Title: aFileChooser
+ *    Author: Paul Burke
+ *    Date: 13 December 2016
+ *    Availability: https://github.com/iPaulPro/aFileChooser
+ *
+ ***************************************************************************************/

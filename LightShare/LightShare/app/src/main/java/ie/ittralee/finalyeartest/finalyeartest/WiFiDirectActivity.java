@@ -187,7 +187,7 @@ public class WiFiDirectActivity extends AppCompatActivity implements ChannelList
 
             @Override
             public void onFailure(int reasonCode) {
-                Log.d(TAG, "Disconnect failed. Reason :" + reasonCode);
+                Log.d(TAG, "Disconnect Failed. Reason :" + reasonCode);
 
             }
 
@@ -209,7 +209,7 @@ public class WiFiDirectActivity extends AppCompatActivity implements ChannelList
             manager.initialize(this, getMainLooper(), this);
         } else {
             Toast.makeText(this,
-                    "Severe! Channel is probably lost premanently. Try Disable/Re-Enable P2P.",
+                    "Severe! Channel is probably lost permanently. Try Disable/Re-Enable P2P.",
                     Toast.LENGTH_LONG).show();
         }
     }
