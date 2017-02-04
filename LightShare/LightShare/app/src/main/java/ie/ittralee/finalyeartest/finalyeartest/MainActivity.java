@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     String log;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +41,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+
         //Button Creation/Instantiation
         instantiateButtons();
 
     }
+
 
 
     @Override

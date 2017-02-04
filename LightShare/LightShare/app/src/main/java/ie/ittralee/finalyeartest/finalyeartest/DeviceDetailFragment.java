@@ -108,7 +108,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		String localIP = Utils.getLocalIPAddress();
-		// Trick to find the ip in the file /proc/net/arp
+		// find the ip in the file /proc/net/arp
 		String client_mac_fixed = new String(device.deviceAddress).replace("99", "19");
 		String clientIP = Utils.getIPFromMac(client_mac_fixed);
 

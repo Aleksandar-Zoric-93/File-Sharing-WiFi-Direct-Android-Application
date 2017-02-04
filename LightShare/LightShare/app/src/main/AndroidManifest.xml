@@ -28,8 +28,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ShareFilesActivity"></activity>
-        <activity android:name=".WiFiDirectActivity"></activity>
         <activity android:name=".MyFilesActivity"></activity>
+        <activity android:name=".WiFiDirectActivity"></activity>
 
         <!-- Used for transferring files  after a successful connection -->
         <service android:enabled="true" android:name=".FileTransferService" />
