@@ -1,15 +1,14 @@
 package ie.ittralee.finalyeartest.finalyeartest;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
-
-import android.util.Log;
 
 public class Utils {
 
@@ -53,34 +52,30 @@ public class Utils {
 	}
 
 
+    // modified from:
+
+    // http://thinkandroid.wordpress.com/2010/03/27/incorporating-socket-programming-into-your-applications/
+
+	// gets the ip address of your phone's network
 	public static String getLocalIPAddress() {
-		/*
-		 * modified from:
-		 * 
-		 * http://thinkandroid.wordpress.com/2010/03/27/incorporating-socket-programming-into-your-applications/
-		 * 
-		 * */
 		try {
 			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
 				NetworkInterface intf = en.nextElement();
 				for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
 					InetAddress inetAddress = enumIpAddr.nextElement();
-
-					String iface = intf.getName();
-					if(iface.matches(".*" +p2pInt+ ".*")){
-						if (inetAddress instanceof Inet4Address) { // fix for Galaxy Nexus. IPv4 is easy to use :-)
-							return getDottedDecimalIP(inetAddress.getAddress());
-						}
-					}
+					if (!inetAddress.isLoopbackAddress()) { return getDottedDecimalIP(inetAddress.getAddress());}
 				}
 			}
 		} catch (SocketException ex) {
-			Log.e("AndroidNetworkAddressFactory", "getLocalIPAddress()", ex);
+            Log.e("AndroidNetworkAddressFactory", "getLocalIPAddress()", ex);
 		} catch (NullPointerException ex) {
-			Log.e("AndroidNetworkAddressFactory", "getLocalIPAddress()", ex);
-		}
+            Log.e("AndroidNetworkAddressFactory", "getLocalIPAddress()", ex);
+        }
+
 		return null;
 	}
+
+
 
 	private static String getDottedDecimalIP(byte[] ipAddr) {
 		/*
