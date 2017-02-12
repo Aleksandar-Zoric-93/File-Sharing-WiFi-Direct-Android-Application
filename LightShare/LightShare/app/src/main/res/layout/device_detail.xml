@@ -37,26 +37,31 @@
         <TextView
             android:id="@+id/device_address"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColorLink="@color/toolbarColor"
+            android:textColor="@color/toolbarColor" />
         <TextView
             android:id="@+id/device_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/toolbarColor" />
         <TextView
             android:id="@+id/group_owner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/confirmColour" />
         <TextView
             android:id="@+id/group_ip"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/confirmColour" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/toolbarColor"
             android:id="@+id/status_text">
         </TextView>
 
