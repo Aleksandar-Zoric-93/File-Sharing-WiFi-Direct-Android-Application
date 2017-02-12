@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.lang.reflect.Method;
+
 import ie.ittralee.finalyeartest.finalyeartest.DeviceListFragment.DeviceActionListener;
 
 import static ie.ittralee.finalyeartest.finalyeartest.R.id.frag_list;
@@ -125,13 +127,11 @@ public class WiFiDirectActivity extends AppCompatActivity implements ChannelList
                 return true;
 
             case R.id.atn_forget_network:
-                if (manager != null && channel != null) {
-                    startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                } else {
-                    Log.e(TAG, "Channel or manager is null");
-                }
-                return true;
+                deleteRememberedGroups();
+                Toast.makeText(WiFiDirectActivity.this,"Deleting all Current Groups...",
+                        Toast.LENGTH_SHORT).show();
 
+                return true;
 
             case R.id.atn_direct_discover:
                 if (!isWifiP2pEnabled) {
@@ -168,6 +168,22 @@ public class WiFiDirectActivity extends AppCompatActivity implements ChannelList
                 .findFragmentById(R.id.frag_detail);
         fragment.showDetails(device);
 
+    }
+
+    private void deleteRememberedGroups(){
+        try {
+            Method[] methods = WifiP2pManager.class.getMethods();
+            for (int i = 0; i < methods.length; i++) {
+                if (methods[i].getName().equals("deleteRememberedGroups")) {
+                    // Delete all current Wi-Fi Direct groups
+                    for (int network_id = 0; network_id < 32; network_id++) {
+                        methods[i].invoke(manager, channel, network_id, null);
+                    }
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
