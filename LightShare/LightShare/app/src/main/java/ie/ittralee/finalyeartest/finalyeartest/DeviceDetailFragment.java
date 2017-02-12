@@ -39,6 +39,8 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 	public static int PORT = 8988;
 	private static boolean server_running = false;
 
+
+
 	protected static final int CHOOSE_FILE_RESULT_CODE = 20;
 	private View mContentView = null;
 	private WifiP2pDevice device;
@@ -59,6 +61,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 			@Override
 			public void onClick(View v) {
 				WifiP2pConfig config = new WifiP2pConfig();
+                //config.groupOwnerIntent = 0;
 				config.deviceAddress = device.deviceAddress;
 				config.wps.setup = WpsInfo.PBC;
 				if (progressDialog != null && progressDialog.isShowing()) {
@@ -107,10 +110,10 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		String localIP = Utils.getLocalIPAddress();
+        String localIP = Utils.getLocalIPAddress();
 		// find the ip in the file /proc/net/arp
 		String client_mac_fixed = new String(device.deviceAddress).replace("99", "19");
-		String clientIP = Utils.getIPFromMac(client_mac_fixed);
+        String clientIP = Utils.getIPFromMac(client_mac_fixed);
 
 		// User has picked an image. Transfer it to group owner i.e peer using
 		// FileTransferService.
@@ -118,7 +121,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 		TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
 		statusText.setText("Sending: " + uri);
 		Log.d(WiFiDirectActivity.TAG, "Intent----------- " + uri);
-		Intent serviceIntent = new Intent(getActivity(), FileTransferService.class);
+        Intent serviceIntent = new Intent(getActivity(), FileTransferService.class);
 		serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
 		serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
 
@@ -131,6 +134,8 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 		serviceIntent.putExtra(FileTransferService.EXTRAS_PORT, PORT);
 		getActivity().startService(serviceIntent);
 	}
+
+
 
 	@Override
 	public void onConnectionInfoAvailable(final WifiP2pInfo info) {

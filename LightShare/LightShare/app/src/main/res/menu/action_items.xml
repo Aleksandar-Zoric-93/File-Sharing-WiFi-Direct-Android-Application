@@ -12,4 +12,11 @@
         android:title="@string/discover_peers_button"
         android:showAsAction="ifRoom|withText" />
 
+    <item
+        android:id="@+id/atn_forget_network"
+        android:icon="@drawable/ic_forget_network"
+        android:title="@string/forget_network"
+        android:showAsAction="ifRoom|withText" />
+
+
 </menu>
