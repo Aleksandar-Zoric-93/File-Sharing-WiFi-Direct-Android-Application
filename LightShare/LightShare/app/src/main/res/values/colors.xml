@@ -2,9 +2,9 @@
 <resources>
     <color name="colorPrimary">#806D15</color>
     <color name="colorPrimaryDark">#806D15</color>
-    <color name="colorAccent">#806D15</color>
+    <color name="colorAccent">#806d15</color>
     <color name="toolbarColor">#806D15</color>
-    <color name="backgroundColor">#AA9739</color>
+    <color name="backgroundColor">#ebeae1</color>
 
     <color name="shareFilesColour"> #554600</color>
     <color name="textColor"> #FFF0AA</color>

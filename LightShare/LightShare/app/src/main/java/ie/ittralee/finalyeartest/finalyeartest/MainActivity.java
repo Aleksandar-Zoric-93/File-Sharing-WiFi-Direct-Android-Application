@@ -53,7 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.shareFilesBtn:
+            case R.id.optionsBtn:
+                Intent optionsIntent =new Intent(getApplicationContext(),OptionsActivity.class);
+                startActivity(optionsIntent);
                 break;
 
             case R.id.messageBtn:
@@ -77,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void instantiateButtons()
     {
-        Button shareFilesBtn;
-        shareFilesBtn = (Button) findViewById(R.id.shareFilesBtn);
-        shareFilesBtn.setOnClickListener(this);
+        Button optionsBtn;
+        optionsBtn = (Button) findViewById(R.id.optionsBtn);
+        optionsBtn.setOnClickListener(this);
 
         Button messageFileBtn;
         messageFileBtn = (Button) findViewById(R.id.messageBtn);

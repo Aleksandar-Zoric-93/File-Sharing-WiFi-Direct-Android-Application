@@ -15,72 +15,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:background="@color/backgroundColor">
-
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
-
-            <Button
-                android:text="Share Files"
-                android:layout_height="179dp"
-                android:id="@+id/shareFilesBtn"
-                android:background="@drawable/default_menu_state"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:textColor="@color/textColor"
-                android:textSize="24sp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
-                android:gravity="center"
-                android:textAlignment="gravity"/>
-
-            <Button
-                android:text="My Files"
-                android:layout_width="150dp"
-                android:layout_height="179dp"
-                android:id="@+id/myFilesBtn"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:background="@drawable/default_menu_state"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:textSize="24sp"
-                android:textColor="@color/textColor"
-                android:gravity="center"
-                android:textAlignment="gravity"/>
-
-            <Button
-                android:text="Connect"
-                android:layout_width="150dp"
-                android:layout_height="179dp"
-                android:id="@+id/connectbtn"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:textSize="24sp"
-                android:textColor="@color/textColor"
-                android:background="@drawable/default_menu_state"
-                android:gravity="center"
-                android:textAlignment="gravity"
-
-                
-                />
-
-            <Button
-                android:text="Message"
-                android:layout_width="150dp"
-                android:layout_height="179dp"
-                android:id="@+id/messageBtn"
-                android:layout_row="0"
-                android:layout_column="1"
-                android:background="@drawable/default_menu_state"
-                android:textSize="24sp"
-                android:textColor="@color/textColor"
-                android:gravity="center"
-                android:textAlignment="gravity" />
-        </GridLayout>
+        tools:background="@color/backgroundColor"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <TextView
             android:text="Copyright Aleksandar Zoric"
@@ -89,8 +27,80 @@
             android:id="@+id/copyrightTextView"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/colorAccent" />
 
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp">
+
+            <Button
+                android:text="Connect"
+                android:layout_height="170dp"
+                android:id="@+id/connectbtn"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:textSize="24sp"
+                android:textColor="@color/textColor"
+                android:background="@drawable/default_menu_state"
+                android:gravity="center"
+                android:textAlignment="gravity"
+
+
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/list_item_padding"
+                android:layout_width="140dp" />
+
+            <Button
+                android:text="My Files"
+                android:layout_height="170dp"
+                android:id="@+id/myFilesBtn"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:background="@drawable/default_menu_state"
+                android:textSize="24sp"
+                android:textColor="@color/textColor"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/list_item_padding"
+                android:layout_marginTop="@dimen/list_item_padding"
+                android:layout_marginRight="@dimen/list_item_padding"
+                android:layout_width="140dp" />
+
+            <Button
+                android:text="Message"
+                android:layout_height="170dp"
+                android:id="@+id/messageBtn"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:background="@drawable/default_menu_state"
+                android:textSize="24sp"
+                android:textColor="@color/textColor"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:layout_marginLeft="@dimen/list_item_padding"
+                android:layout_width="140dp" />
+
+            <Button
+                android:text="Options"
+                android:layout_height="170dp"
+                android:id="@+id/optionsBtn"
+                android:background="@drawable/default_menu_state"
+                android:textColor="@color/textColor"
+                android:textSize="24sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_marginLeft="@dimen/list_item_padding"
+                android:layout_marginBottom="@dimen/list_item_padding"
+                android:layout_width="140dp" />
+        </GridLayout>
 
 
     </RelativeLayout>

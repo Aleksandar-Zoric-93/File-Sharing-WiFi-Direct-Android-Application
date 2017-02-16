@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView"
             android:textSize="20sp"
-            android:textColor="@color/textColor"
+            android:textColor="@color/colorAccent"
             android:layout_below="@+id/chooseFileBtn"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp" />

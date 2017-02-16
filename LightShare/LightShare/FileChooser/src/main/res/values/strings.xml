@@ -16,9 +16,9 @@
  -->
 <resources>
     <string name="empty_directory">Empty Directory</string>
-    <string name="storage_removed">Storage was removed or unmounted.</string>
-    <string name="choose_file">Select a file</string>
-    <string name="error_selecting_file">Error selecting File</string>
-    <string name="internal_storage">Internal storage</string>
-    <string name="chooser_title">Lorem ipsum</string>
+    <string name="storage_removed">Storage was Removed or Unmounted.</string>
+    <string name="choose_file">Select a File</string>
+    <string name="error_selecting_file">Error Selecting File</string>
+    <string name="internal_storage">Internal Storage</string>
+    <string name="chooser_title">Light Share</string>
 </resources>
