@@ -24,7 +24,7 @@ import static ie.ittralee.finalyeartest.finalyeartest.R.id.fileNameTextView;
 public class MyFilesActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "ShareFilesActivity";
     TextView fileTypeTextView = null;
-    String mimeType = null;
+    String mimeType = "*/*";
     Button previewBtn;
 
     private static final int REQUEST_CODE = 6384; // onActivityResult request
@@ -66,7 +66,7 @@ public class MyFilesActivity extends AppCompatActivity implements View.OnClickLi
 
                 intent.setDataAndType(Uri.parse(input),type);
 
-                if(type == "audio/mpeg")
+                if(type == "*/*")
                 {
                     MediaPlayer mediaPlayer = MediaPlayer.create(this, Uri.parse(type));
                     mediaPlayer.start();

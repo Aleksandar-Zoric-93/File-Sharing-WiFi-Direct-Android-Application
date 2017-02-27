@@ -12,10 +12,10 @@
         android:layout_weight="1.56">
 
         <Button
-            android:text="Set Device Name"
-            android:id="@+id/changeDeviceNameBtn"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/textColor"
+            android:text="Settings"
+            android:id="@+id/settingsBtn"
+            android:background="@drawable/default_menu_state"
+            android:textColor="@color/backgroundColor"
             android:textSize="24sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
             android:gravity="center"
@@ -26,40 +26,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
-        <Button
-            android:text="Test"
-            android:id="@+id/button3"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/textColor"
-            android:textSize="24sp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
-            android:gravity="center"
-            android:textAlignment="gravity"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:layout_below="@+id/changeDeviceNameBtn"
-            android:layout_alignLeft="@+id/changeDeviceNameBtn"
-            android:layout_alignStart="@+id/changeDeviceNameBtn"
-            android:layout_marginTop="30dp" />
-
-        <Button
-            android:text="Test"
-            android:id="@+id/button4"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/textColor"
-            android:textSize="24sp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
-            android:gravity="center"
-            android:textAlignment="gravity"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:layout_below="@+id/button3"
-            android:layout_alignLeft="@+id/button3"
-            android:layout_alignStart="@+id/button3"
-            android:layout_marginTop="30dp" />
-
         <TextView
-            android:text="Copyright Aleksandar Zoric"
+            android:text="@string/copyright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
@@ -67,6 +35,38 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="12dp" />
+
+        <Button
+            android:text="Send Feedback"
+            android:id="@+id/sendFeedbackBtn"
+            android:background="@drawable/default_menu_state"
+            android:textColor="@color/backgroundColor"
+            android:textSize="24sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/settingsBtn"
+            android:layout_alignLeft="@+id/settingsBtn"
+            android:layout_alignStart="@+id/settingsBtn"
+            android:layout_marginTop="27dp" />
+
+        <Button
+            android:text="About"
+            android:id="@+id/aboutBtn"
+            android:background="@drawable/default_menu_state"
+            android:textColor="@color/backgroundColor"
+            android:textSize="24sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/sendFeedbackBtn"
+            android:layout_alignLeft="@+id/sendFeedbackBtn"
+            android:layout_alignStart="@+id/sendFeedbackBtn"
+            android:layout_marginTop="27dp" />
 
     </RelativeLayout>
 </LinearLayout>
