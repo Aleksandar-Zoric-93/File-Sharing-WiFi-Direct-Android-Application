@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#806D15</color>
-    <color name="colorPrimaryDark">#806D15</color>
+    <color name="colorPrimary">#454543</color>
+    <color name="colorPrimaryDark">#454543</color>
     <color name="colorAccent">#806d15</color>
-    <color name="toolbarColor">#806D15</color>
-    <color name="backgroundColor">#ebeae1</color>
+    <color name="toolbarColor">#454543</color>
+    <color name="backgroundColor">#171717</color>
 
-    <color name="shareFilesColour"> #554600</color>
+    <color name="shareFilesColour">#454543</color>
     <color name="textColor"> #FFF0AA</color>
 
     <color name="fileNotSelected">#ba1212</color>
-    <color name="fileSelected"> #D4C26A</color>
-    <color name="confirmColour">#00cc00</color>
-    <color name="disconnectColour"> #ff0000</color>
+    <color name="fileSelected"> #FFFFFF</color>
+    <color name="confirmColour">#26702e</color>
+    <color name="disconnectColour"> #c73030</color>
 </resources>

@@ -16,9 +16,10 @@
             android:id="@+id/btn_connect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/connect_peer_button"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@color/confirmColour"
-            android:layout_marginBottom="@dimen/activity_vertical_margin" />
+            android:text="@string/connect_peer_button"
+            android:textColor="@color/shareFilesColour" />
 
         <Button
             android:id="@+id/btn_start_client"
@@ -32,20 +33,22 @@
             android:id="@+id/btn_disconnect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/disconnectColour"
             android:text="@string/disconnect_peer_button"
-            android:background="@android:color/holo_red_dark" />
+            android:textColor="@color/shareFilesColour" />
 
         <TextView
             android:id="@+id/device_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorLink="@color/toolbarColor"
-            android:textColor="@color/toolbarColor" />
+            android:textColor="@android:color/background_light"
+            android:textColorLink="@color/toolbarColor" />
+
         <TextView
             android:id="@+id/device_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/toolbarColor" />
+            android:textColor="@android:color/background_light" />
         <TextView
             android:id="@+id/group_owner"
             android:layout_width="match_parent"
@@ -58,13 +61,12 @@
             android:textColor="@color/confirmColour" />
 
         <TextView
+            android:id="@+id/status_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:textColor="@color/toolbarColor"
-            android:id="@+id/status_text">
-        </TextView>
+            android:textColor="@android:color/background_light"></TextView>
 
     </LinearLayout>
 </FrameLayout>

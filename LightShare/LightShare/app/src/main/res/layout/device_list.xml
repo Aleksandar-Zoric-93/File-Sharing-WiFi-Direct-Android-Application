@@ -10,7 +10,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="@string/label_me" />
+        android:text="@string/label_me"
+        android:textColor="@android:color/background_light" />
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
@@ -24,30 +25,36 @@
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:padding="3dip">
+
         <ImageView
             android:id="@+id/icon"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_marginRight="2dp" />
+            android:layout_marginRight="2dp"
+            android:background="@color/shareFilesColour" />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="fill_parent">
+
             <TextView
                 android:id="@+id/my_name"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:textColor="@android:color/background_light"
                 android:textColorLink="@color/textColor" />
+
             <TextView
                 android:id="@+id/my_status"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:ellipsize="marquee"
                 android:singleLine="true"
-                android:ellipsize="marquee" />
+                android:textColor="@android:color/background_light" />
         </LinearLayout>
     </LinearLayout>
 
@@ -55,7 +62,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="@string/label_peers" />
+        android:text="@string/label_peers"
+        android:textColor="@color/confirmColour" />
 
     <View
         android:layout_width="fill_parent"

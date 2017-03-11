@@ -250,12 +250,19 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 		 */
 		@Override
 		protected void onPostExecute(String result) {
+			boolean check = true;
 			if (result != null) {
 				statusText.setText("File copied - " + result);
 				Intent intent = new Intent();
 				intent.setAction(android.content.Intent.ACTION_VIEW);
-				intent.setDataAndType(Uri.parse("file://" + result), "image/*");
+				while(check)
+				{
+					intent.setDataAndType(Uri.parse("file://" + result), "image/*");
+                    check = false;
+				}
+				intent.setDataAndType(Uri.parse("file://" + result), "*/*");
 				context.startActivity(intent);
+
 			}
 
 		}
