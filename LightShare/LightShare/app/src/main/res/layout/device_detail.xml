@@ -33,6 +33,7 @@
             android:id="@+id/btn_disconnect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@color/disconnectColour"
             android:text="@string/disconnect_peer_button"
             android:textColor="@color/shareFilesColour" />
@@ -67,6 +68,16 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:textColor="@android:color/background_light"></TextView>
+
+        <ProgressBar
+            android:id="@+id/pb"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:progressBackgroundTint="@color/confirmColour"
+            android:progressDrawable="@color/confirmColour"
+            android:visibility="invisible" />
 
     </LinearLayout>
 </FrameLayout>

@@ -47,7 +47,6 @@ public class FileTransferService extends IntentService {
 			String host = intent.getExtras().getString(EXTRAS_ADDRESS);
 			Socket socket = new Socket();
 			int port = intent.getExtras().getInt(EXTRAS_PORT);
-
 			try {
 				Log.d(WiFiDirectActivity.TAG, "Opening client socket - ");
 				socket.bind(null);

@@ -9,6 +9,7 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.net.wifi.p2p.WifiP2pManager.Channel;
 import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 /**
  * A BroadcastReceiver that notifies of important wifi p2p events.
@@ -18,6 +19,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
     private WifiP2pManager manager;
     private Channel channel;
     private WiFiDirectActivity activity;
+    ProgressBar progressBar;
 
     /**
      * @param manager WifiP2pManager system service
@@ -30,7 +32,9 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
         this.manager = manager;
         this.channel = channel;
         this.activity = activity;
+
     }
+
 
     /*
      * (non-Javadoc)

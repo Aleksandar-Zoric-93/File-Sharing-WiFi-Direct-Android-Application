@@ -1,6 +1,6 @@
 package ie.ittralee.finalyeartest.finalyeartest;
 
-import android.app.Fragment;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +17,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,6 +28,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 import ie.ittralee.finalyeartest.finalyeartest.DeviceListFragment.DeviceActionListener;
 
@@ -33,28 +38,28 @@ import ie.ittralee.finalyeartest.finalyeartest.DeviceListFragment.DeviceActionLi
  * A fragment that manages a particular peer and allows interaction with device
  * i.e. setting up network connection and transferring data.
  */
-public class DeviceDetailFragment extends Fragment implements ConnectionInfoListener {
+
+public class DeviceDetailFragment extends DialogFragment implements ConnectionInfoListener {
 
 	public static final String IP_SERVER = "192.168.49.1";
 	public static int PORT = 8988;
 	private static boolean server_running = false;
 
-
-
-	protected static final int CHOOSE_FILE_RESULT_CODE = 20;
+    protected static final int CHOOSE_FILE_RESULT_CODE = 20;
 	private View mContentView = null;
 	private WifiP2pDevice device;
 	private WifiP2pInfo info;
 	ProgressDialog progressDialog = null;
+	ProgressBar pb;
 
-	@Override
+
+    @Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
 		mContentView = inflater.inflate(R.layout.device_detail, null);
 		mContentView.findViewById(R.id.btn_connect).setOnClickListener(new View.OnClickListener() {
 
@@ -67,6 +72,9 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 				if (progressDialog != null && progressDialog.isShowing()) {
 					progressDialog.dismiss();
 				}
+                if (pb != null) {
+                    pb.setVisibility(View.INVISIBLE);
+                }
 				progressDialog = ProgressDialog.show(getActivity(), "Press back to cancel",
 						"Connecting to :" + device.deviceAddress, true, true
 						//                        new DialogInterface.OnCancelListener() {
@@ -109,21 +117,34 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         String localIP = Utils.getLocalIPAddress();
 		// find the ip in the file /proc/net/arp
 		String client_mac_fixed = new String(device.deviceAddress).replace("99", "19");
         String clientIP = Utils.getIPFromMac(client_mac_fixed);
 
-		// User has picked an image. Transfer it to group owner i.e peer using
+        if (pb != null) {
+            pb.setVisibility(View.INVISIBLE);
+        }
+
+		// User has picked a file. Transfer it to group owner i.e peer using
 		// FileTransferService.
 		Uri uri = data.getData();
 		TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
 		statusText.setText("Sending: " + uri);
+
+        //Display progress bar when sending a file
+        pb = (ProgressBar)mContentView.findViewById(R.id.pb);
+		pb.setVisibility(View.VISIBLE);
+		pb.setVisibility(ProgressBar.VISIBLE);
+
+
+
 		Log.d(WiFiDirectActivity.TAG, "Intent----------- " + uri);
         Intent serviceIntent = new Intent(getActivity(), FileTransferService.class);
 		serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
 		serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
+
+
 
 		if(localIP.equals(IP_SERVER)){
 			serviceIntent.putExtra(FileTransferService.EXTRAS_ADDRESS, clientIP);
@@ -166,6 +187,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 		mContentView.findViewById(R.id.btn_connect).setVisibility(View.GONE);
 	}
 
+
 	/**
 	 * Updates the UI with device data
 	 * 
@@ -206,6 +228,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 
 		private final Context context;
 		private final TextView statusText;
+        File f = null;
 
 		/**
 		 * @param context
@@ -214,16 +237,18 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 		public ServerAsyncTask(Context context, View statusText) {
 			this.context = context;
 			this.statusText = (TextView) statusText;
-		}
 
-		@Override
+        }
+
+        @Override
 		protected String doInBackground(Void... params) {
 			try {
+
 				ServerSocket serverSocket = new ServerSocket(PORT);
 				Log.d(WiFiDirectActivity.TAG, "Server: Socket opened");
 				Socket client = serverSocket.accept();
 				Log.d(WiFiDirectActivity.TAG, "Server: connection done");
-				final File f = new File(Environment.getExternalStorageDirectory() + "/"
+                f = new File(Environment.getExternalStorageDirectory() + "/"
 						+ context.getPackageName() + "/wifip2pshared-" + System.currentTimeMillis()
 						+ ".jpg");
 
@@ -232,9 +257,11 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 					dirs.mkdirs();
 				f.createNewFile();
 
+
 				Log.d(WiFiDirectActivity.TAG, "server: copying files " + f.toString());
 				InputStream inputstream = client.getInputStream();
 				copyFile(inputstream, new FileOutputStream(f));
+                this.publishProgress();
 				serverSocket.close();
 				server_running = false;
 				return f.getAbsolutePath();
@@ -259,13 +286,14 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 				{
 					intent.setDataAndType(Uri.parse("file://" + result), "image/*");
                     check = false;
+
 				}
 				intent.setDataAndType(Uri.parse("file://" + result), "*/*");
 				context.startActivity(intent);
-
 			}
-
 		}
+
+
 
 		/*
 		 * (non-Javadoc)
@@ -278,9 +306,10 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 
 	}
 
-	public static boolean copyFile(InputStream inputStream, OutputStream out) {
+
+	public static boolean copyFile(InputStream inputStream, OutputStream out) throws IOException {
 		byte buf[] = new byte[1024];
-		int len;
+        int len;
 		try {
 			while ((len = inputStream.read(buf)) != -1) {
 				out.write(buf, 0, len);
@@ -292,7 +321,44 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 			Log.d(WiFiDirectActivity.TAG, e.toString());
 			return false;
 		}
+		compress(buf);
 		return true;
 	}
+
+    public static void compress(byte[] data) throws IOException {
+
+        Deflater deflator = new Deflater();
+        deflator.setInput(data);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+        deflator.finish();
+
+        byte[] buffer = new byte[1024];
+        while(!deflator.finished()) {
+            int count = deflator.deflate(buffer);
+            outputStream.write(buffer,0,count);
+        }
+
+        outputStream.close();
+        byte[] output = outputStream.toByteArray();
+
+        System.out.println("Original: " + data.length/1024 + "Kb");
+        System.out.println("Compressed: " + output.length / 1024 + "Kb");
+    }
+
+    public static void decompress(byte[] data) throws IOException, DataFormatException {
+        Inflater inflater = new Inflater();
+        inflater.setInput(data);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+        byte[] buffer = new byte[1024];
+        while (!inflater.finished()) {
+            int count = inflater.inflate(buffer);
+            outputStream.write(buffer, 0, count);
+        }
+        outputStream.close();
+        byte[] output = outputStream.toByteArray();
+        System.out.println("\n\nOriginal Dec: " + data.length);
+        System.out.println("Compressed Dec: " + output.length);
+    }
 
 }
