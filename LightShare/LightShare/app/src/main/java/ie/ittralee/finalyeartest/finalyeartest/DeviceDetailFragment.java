@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,9 +27,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.zip.DataFormatException;
-import java.util.zip.Deflater;
-import java.util.zip.Inflater;
+import java.util.zip.InflaterInputStream;
 
 import ie.ittralee.finalyeartest.finalyeartest.DeviceListFragment.DeviceActionListener;
 
@@ -130,7 +127,9 @@ public class DeviceDetailFragment extends DialogFragment implements ConnectionIn
 		// FileTransferService.
 		Uri uri = data.getData();
 		TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
+        TextView compressionTxt = (TextView) mContentView.findViewById(R.id.compressionTxt);
 		statusText.setText("Sending: " + uri);
+        compressionTxt.setText("Size of file: " + returnSize() + "Kb");
 
         //Display progress bar when sending a file
         pb = (ProgressBar)mContentView.findViewById(R.id.pb);
@@ -179,7 +178,7 @@ public class DeviceDetailFragment extends DialogFragment implements ConnectionIn
 		mContentView.findViewById(R.id.btn_start_client).setVisibility(View.VISIBLE);
 
 		if (!server_running){
-			new ServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();
+			new ServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text), mContentView.findViewById(R.id.compressionTxt)).execute();
 			server_running = true;
 		}
 
@@ -229,14 +228,17 @@ public class DeviceDetailFragment extends DialogFragment implements ConnectionIn
 		private final Context context;
 		private final TextView statusText;
         File f = null;
+        private final TextView compressionTxt;
 
 		/**
 		 * @param context
 		 * @param statusText
+         * @param compressionTxt
 		 */
-		public ServerAsyncTask(Context context, View statusText) {
+		public ServerAsyncTask(Context context, View statusText, View compressionTxt) {
 			this.context = context;
 			this.statusText = (TextView) statusText;
+            this.compressionTxt = (TextView) compressionTxt;
 
         }
 
@@ -260,7 +262,8 @@ public class DeviceDetailFragment extends DialogFragment implements ConnectionIn
 
 				Log.d(WiFiDirectActivity.TAG, "server: copying files " + f.toString());
 				InputStream inputstream = client.getInputStream();
-				copyFile(inputstream, new FileOutputStream(f));
+                InflaterInputStream inflaterInputStreams = new InflaterInputStream(inputstream);
+				copyFile(inflaterInputStreams, new FileOutputStream(f));
                 this.publishProgress();
 				serverSocket.close();
 				server_running = false;
@@ -280,6 +283,7 @@ public class DeviceDetailFragment extends DialogFragment implements ConnectionIn
 			boolean check = true;
 			if (result != null) {
 				statusText.setText("File copied - " + result);
+                compressionTxt.setText("Size of file: " + returnSize() + "Kb");
 				Intent intent = new Intent();
 				intent.setAction(android.content.Intent.ACTION_VIEW);
 				while(check)
@@ -306,13 +310,14 @@ public class DeviceDetailFragment extends DialogFragment implements ConnectionIn
 
 	}
 
-
+    static int length;
 	public static boolean copyFile(InputStream inputStream, OutputStream out) throws IOException {
 		byte buf[] = new byte[1024];
         int len;
 		try {
 			while ((len = inputStream.read(buf)) != -1) {
 				out.write(buf, 0, len);
+                length = len;
 
 			}
 			out.close();
@@ -321,44 +326,15 @@ public class DeviceDetailFragment extends DialogFragment implements ConnectionIn
 			Log.d(WiFiDirectActivity.TAG, e.toString());
 			return false;
 		}
-		compress(buf);
 		return true;
 	}
 
-    public static void compress(byte[] data) throws IOException {
-
-        Deflater deflator = new Deflater();
-        deflator.setInput(data);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-        deflator.finish();
-
-        byte[] buffer = new byte[1024];
-        while(!deflator.finished()) {
-            int count = deflator.deflate(buffer);
-            outputStream.write(buffer,0,count);
-        }
-
-        outputStream.close();
-        byte[] output = outputStream.toByteArray();
-
-        System.out.println("Original: " + data.length/1024 + "Kb");
-        System.out.println("Compressed: " + output.length / 1024 + "Kb");
+    public static int returnSize()
+    {
+        return length;
     }
 
-    public static void decompress(byte[] data) throws IOException, DataFormatException {
-        Inflater inflater = new Inflater();
-        inflater.setInput(data);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-        byte[] buffer = new byte[1024];
-        while (!inflater.finished()) {
-            int count = inflater.inflate(buffer);
-            outputStream.write(buffer, 0, count);
-        }
-        outputStream.close();
-        byte[] output = outputStream.toByteArray();
-        System.out.println("\n\nOriginal Dec: " + data.length);
-        System.out.println("Compressed Dec: " + output.length);
-    }
+
+
 
 }

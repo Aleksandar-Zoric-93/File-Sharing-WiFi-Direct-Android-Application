@@ -69,6 +69,14 @@
             android:layout_margin="5dp"
             android:textColor="@android:color/background_light"></TextView>
 
+        <TextView
+            android:id="@+id/compressionTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:textColor="@color/confirmColour"></TextView>
+
         <ProgressBar
             android:id="@+id/pb"
             style="?android:attr/progressBarStyleHorizontal"

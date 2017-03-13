@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.zip.DeflaterOutputStream;
 
 /**
  * A service that process each file transfer request i.e Intent by opening a
@@ -61,7 +62,8 @@ public class FileTransferService extends IntentService {
 				} catch (FileNotFoundException e) {
 					Log.d(WiFiDirectActivity.TAG, e.toString());
 				}
-				DeviceDetailFragment.copyFile(is, stream);
+                DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(stream);
+				DeviceDetailFragment.copyFile(is, deflaterOutputStream);
 				Log.d(WiFiDirectActivity.TAG, "Client: Data written");
 			} catch (IOException e) {
 				Log.e(WiFiDirectActivity.TAG, e.getMessage());
