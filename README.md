@@ -38,7 +38,7 @@ Run the app on your device as follows:
     In Android Studio, click the app module in the Project window and then select Run > Run (or click Run in the toolbar).
     In the Select Deployment Target window, select your device, and click OK.
 
-Android Studio installs the app on your connected device and starts it. You should now see "Hello World!" displayed in the app running on your device.
+Android Studio installs the app on your connected device and starts it. You should now see the app has installed on your device and you can access it.  It remains installed when you disconnect, so this is only required once unless you make changes to the app.
 
 
 # Optional
